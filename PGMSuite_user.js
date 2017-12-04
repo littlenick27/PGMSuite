@@ -161,16 +161,18 @@ function postDiscord(p) {
     function postFromAddr(addr){
         var date = new Date(p.despawn * 1000);
         var dateString = date.getHours() + ':' + ("0" + date.getMinutes()).substr(-2) + ':' + ("0" + date.getSeconds()).substr(-2);
-        var stats = p.cp == -1 ? '' : ('(' + p.cp + ' CP)') + Math.floor((p.attack + p.defence + p.stamina) / 0.45) + '% with ' + getMoveName(p.move1) + ', ' + getMoveName(p.move2);
-        var text = getPokemonName(p) + ' ' + stats + ' until ' + dateString + ' at ' + addr + ' http://maps.google.com/maps?q=' + p.center.lat + ',' + p.center.lng + '&zoom=14';
-        $.ajax({
-            data: 'content=' + text,
-            dataType: 'json',
-            processData: false,
-            type: 'POST',
-            url: $('#iwh').val()
-        });
-    }
+        var cp = p.cp == -1 ? '' : ('(' + p.cp + ' CP)');
+		var iv = '[' + Math.floor((p.attack + p.defence + p.stamina) / 0.45) + '%]';
+		var moves = 'with ' + getMoveName(p.move1) + ', ' + getMoveName(p.move2);
+		
+		var text = getPokemonName(p) + ' [' + cp + '] '+ iv + ' at ' + addr + 'until ' + dateString + ' at '+ http://maps.google.com/maps?q=' + p.center.lat + ',' + p.center.lng + '&zoom=14' + + ' with ' + moves;
+			$.ajax({
+				data: 'content=' + text,
+				dataType: 'json',
+				processData: false,
+				type: 'POST',
+				url: $('#iwh').val()
+		}	
 }
 
 function refreshPokemons() {
